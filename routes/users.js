@@ -1,38 +1,53 @@
-const express = require('express'); // Import the Express framework
-const router = express.Router(); // Create a new router object
+const express = require('express');
+const router = express.Router();
 
-// In-memory data store for users (in a real application, this would be a database)
+// Example in-memory data
 let users = [
-  { id: 1, name: 'John Doe' },
-  { id: 2, name: 'Jane Doe' },
+  { id: 1, name: 'John Doe', email: 'john@example.com' },
+  { id: 2, name: 'Jane Doe', email: 'jane@example.com' }
 ];
 
-// GET route to retrieve all users
-router.get('/', (req, res) => res.json(users));
+// GET all users
+router.get('/', (req, res) => {
+  res.json(users);
+});
 
-// POST route to create a new user
+// GET user by ID
+router.get('/:id', (req, res) => {
+  const user = users.find(u => u.id === parseInt(req.params.id));
+  if (!user) return res.status(404).send('User not found');
+  res.json(user);
+});
+
+// POST a new user
 router.post('/', (req, res) => {
-  const newUser = { id: Date.now(), ...req.body }; // Create a new user object with a unique ID
-  users.push(newUser); // Add the new user to the users array
-  res.status(201).json(newUser); // Send a response with the created user and status code 201
+  const newUser = {
+    id: users.length + 1,
+    name: req.body.name,
+    email: req.body.email
+  };
+  users.push(newUser);
+  res.status(201).json(newUser);
 });
 
-// PUT route to update an existing user
-router.put('/:id', (req, res) => {
-  const userId = parseInt(req.params.id); // Get the user ID from the route parameter
-  const userIndex = users.findIndex(user => user.id === userId); // Find the index of the user with the given ID
-  if (userIndex !== -1) {
-    users[userIndex] = { id: userId, ...req.body }; // Update the user object
-    res.json(users[userIndex]); // Send the updated user as the response
-  } else {
-    res.status(404).send('User not found'); // If the user is not found, send a 404 response
-  }
+// PATCH an existing user
+router.patch('/:id', (req, res) => {
+  const user = users.find(u => u.id === parseInt(req.params.id));
+  if (!user) return res.status(404).send('User not found');
+  
+  if (req.body.name) user.name = req.body.name;
+  if (req.body.email) user.email = req.body.email;
+
+  res.json(user);
 });
 
-// DELETE route to delete a user
+// DELETE a user
 router.delete('/:id', (req, res) => {
-  users = users.filter(user => user.id !== parseInt(req.params.id)); // Remove the user with the given ID from the array
-  res.status(204).send(); // Send a 204 No Content response
+  const userIndex = users.findIndex(u => u.id === parseInt(req.params.id));
+  if (userIndex === -1) return res.status(404).send('User not found');
+
+  const deletedUser = users.splice(userIndex, 1);
+  res.json(deletedUser);
 });
 
-module.exports = router; // Export the router to be used in the main app
+module.exports = router;
