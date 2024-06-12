@@ -20,6 +20,7 @@ const app = express(); // Initialize the Express application
 app.use(bodyParser.urlencoded({ extended: false })); // Middleware to parse URL-encoded request bodies
 app.use(bodyParser.json()); // Middleware to parse JSON request bodies
 app.set('view engine', 'ejs'); // Set the view engine to EJS (Embedded JavaScript)
+app.set('views', path.join(__dirname, 'views')); // Set the path to the views directory
 app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from the 'public' directory
 
 // Use custom logging middleware to log request details
@@ -34,6 +35,11 @@ app.get('/', (req, res) => {
 app.use('/users', auth, usersRouter); // Use auth middleware for users routes
 app.use('/posts', postsRouter); // Use posts routes
 app.use('/comments', commentsRouter); // Use comments routes
+
+// Handle 404 errors (middleware for non-existent routes)
+app.use((req, res, next) => {
+  res.status(404).send('So sorry; not a valid address!'); // Send a 404 Not Found response for unmatched routes
+});
 
 // Error handling middleware
 app.use(errorHandler); // Use custom error-handling middleware
