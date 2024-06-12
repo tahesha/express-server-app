@@ -4,11 +4,19 @@ const router = express.Router();
 // Example in-memory data (usually replaced with database queries)
 let comments = [
   { id: 1, postId: 1, content: 'This is a comment on the first post' },
-  { id: 2, postId: 1, content: 'Another comment on the first post' }
+  { id: 2, postId: 1, content: 'Another comment on the first post' },
+  { id: 3, postId: 2, content: 'This is a comment on the second post' }
 ];
 
-// GET all comments
+// GET all comments or filter by postId
 router.get('/', (req, res) => {
+  // Check if there's a query parameter 'postId' for filtering
+  if (req.query.postId) {
+    const filteredComments = comments.filter(c => c.postId === parseInt(req.query.postId)); // Filter comments by postId
+    return res.json(filteredComments); // Respond with the filtered comments
+  }
+  
+  // If no filtering is applied, respond with all comments
   res.json(comments); // Respond with JSON array containing all comments
 });
 
