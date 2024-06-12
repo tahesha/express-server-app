@@ -38,7 +38,7 @@ app.use('/comments', commentsRouter); // Use comments routes
 
 // Handle 404 errors (middleware for non-existent routes)
 app.use((req, res, next) => {
-  res.status(404).send('So sorry; not a valid address!'); // Send a 404 Not Found response for unmatched routes
+  res.status(404).send('Not Found'); // Send a 404 Not Found response for unmatched routes
 });
 
 // Error handling middleware
