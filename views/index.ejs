@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"> <!-- Character encoding for the document -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Viewport settings for responsive design -->
+  <title><%= title %></title> <!-- Dynamically set the page title using EJS -->
+  <link rel="stylesheet" href="/styles.css"> <!-- Link to the CSS stylesheet -->
+</head>
+<body>
+  <h1>Welcome to the Express Server App</h1>
+  <p>This is a sample application demonstrating the use of Node.js and Express.</p>
+
+  <!-- Form to create a new post -->
+  <form action="/posts" method="POST">
+    <input type="text" name="title" placeholder="Post Title" required> <!-- Input field for the post title -->
+    <textarea name="content" placeholder="Post Content" required></textarea> <!-- Textarea for the post content -->
+    <button type="submit">Create Post</button> <!-- Submit button to create a new post -->
+  </form>
+</body>
+</html>
