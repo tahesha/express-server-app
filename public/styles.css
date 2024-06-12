@@ -1,0 +1,33 @@
+/* Styles for the body element */
+body {
+    font-family: Arial, sans-serif; /* Set the font family for the body */
+    margin: 20px; /* Add margin around the body */
+  }
+  
+  /* Styles for h1 headings */
+  h1 {
+    color: #333; /* Set the color of h1 headings */
+  }
+  
+  /* Styles for the form element */
+  form {
+    margin-top: 20px; /* Add margin at the top of the form */
+  }
+  
+  /* Styles for input and textarea elements */
+  input, textarea {
+    display: block; /* Display input and textarea elements as block elements */
+    margin-bottom: 10px; /* Add margin below input and textarea elements */
+    padding: 10px; /* Add padding inside input and textarea elements */
+    width: 300px; /* Set the width of input and textarea elements */
+  }
+  
+  /* Styles for the button element */
+  button {
+    padding: 10px 20px; /* Add padding inside the button */
+    background-color: #ff00c8; /* Set the background color of the button */
+    color: rgb(5, 5, 5); /* Set the text color of the button */
+    border: none; /* Remove the border of the button */
+    cursor: pointer; /* Change the cursor to a pointer when hovering over the button */
+  }
+  
